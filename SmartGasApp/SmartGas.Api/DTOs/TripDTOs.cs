@@ -20,4 +20,15 @@ namespace SmartGas.Api.DTOs
         public double FuelCostQ { get; set; }
         public double TotalTripCostQ { get; set; }
     }
+
+    public class FuelEconomyMenuResponse
+    {
+        public List<MenuItemDto>? MenuItems {get; set;}
+    }
+
+    public class MenuItemDto
+    {
+        public string Text {get; set;} = string.Empty;
+        public string Value {get; set;} = string.Empty;
+    }
 }
