@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("SmartGas.Api")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+04b95cbc632070c3ed3057023fdd9a45fcd96824")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1a3a071981a965f24cdfeab8a3bb5b454c592a0b")]
 [assembly: System.Reflection.AssemblyProductAttribute("SmartGas.Api")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SmartGas.Api")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
