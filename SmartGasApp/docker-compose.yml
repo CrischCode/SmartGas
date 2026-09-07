@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  smartgas-db:
+    image: postgres:15-alpine
+    container_name: smartgas_db
+    environment:
+      POSTGRES_DB: smartgasdb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: StrongPassword123!
+    ports:
+      - "5432:5432"
+    volumes:
+      - smartgas-pgdata:/var/lib/postgresql/data
+    networks:
+      - smartgas-net
+
+  smartgas-api:
+    build:
+      context: ./SmartGas.Api
+      dockerfile: Dockerfile
+    container_name: smartgas_api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=Host=smartgas-db;Database=smartgasdb;Username=postgres;Password=StrongPassword123!
+    ports:
+      - "5000:8080"
+    depends_on:
+      - smartgas-db
+    networks:
+      - smartgas-net
+
+volumes:
+  smartgas-pgdata:
+
+networks:
+  smartgas-net:
+    driver: bridge
