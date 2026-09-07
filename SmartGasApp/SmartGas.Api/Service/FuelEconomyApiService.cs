@@ -36,5 +36,24 @@ namespace SmartGas.Api.Service
                 return Enumerable.Empty<string>();
             }
         }
+
+        public async Task<IEnumerable<string>> GetModelosApiAsync(string obtener)
+        {
+            try {
+            var response = await _httpClient.GetAsync($"vehicule/menu/modelo?obtener={Uri.EscapeDataString(obtener)}");
+            response.EnsureSuccessStatusCode();
+
+            var contenido = await response.Content.ReadAsStringAsync();
+            var resultado = JsonSerializer.Deserialize<FuelEconomyMenuResponse>(contenido, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+
+            return resultado?.MenuItems?.Select(m => m.Value) ?? Enumerable.Empty<String>();
+
+            } 
+            catch
+            {
+                return Enumerable.Empty<String>();
+            }
+
+        }
     }
 }
