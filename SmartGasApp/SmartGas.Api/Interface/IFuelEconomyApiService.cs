@@ -8,6 +8,6 @@ namespace SmartGas.Api.Interface
     public interface IFuelEconomyApiService
     {
     Task<IEnumerable<string>> GetMakesFromApiAsync();
-    Task<IEnumerable<string>> GetModelsFromApiAsync(string make); 
+    Task<IEnumerable<string>> GetModelosApiAsync(string obtener); 
     }
 }
