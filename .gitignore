@@ -1,0 +1,16 @@
+﻿# Carpetas de compilación de .NET
+[Bb]in/
+[Oo]bj/
+
+# Archivos de configuración de usuario o entorno local 
+*.user
+*.suo
+SmartGasApp/SmartGas.Api/obj/Debug/net9.0/SmartGas.Api.AssemblyInfo.cs
+SmartGasApp/SmartGas.Api/obj/Debug/net9.0/SmartGas.Api.AssemblyInfoInputs.cache
+SmartGasApp/SmartGas.Api/obj/Debug/net9.0/SmartGas.Api.csproj.AssemblyReference.cache
+SmartGasApp/SmartGas.Api/obj/Debug/net9.0/SmartGas.Api.assets.cache
+SmartGasApp/SmartGas.Api/obj/project.assets.json
+SmartGasApp/SmartGas.Api/obj/project.nuget.cache
+SmartGasApp/SmartGas.Api/obj/SmartGas.Api.csproj.nuget.dgspec.json
+SmartGasApp/SmartGas.Api/obj/SmartGas.Api.csproj.nuget.g.props
+SmartGasApp/SmartGas.Api/obj/SmartGas.Api.csproj.nuget.g.targets
