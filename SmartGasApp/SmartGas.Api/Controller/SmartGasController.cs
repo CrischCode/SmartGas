@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SmartGas.Api.Data;
+using SmartGas.Api.DTOs;
 using SmartGas.Api.Interface;
 using SmartGas.Api.Model;
 

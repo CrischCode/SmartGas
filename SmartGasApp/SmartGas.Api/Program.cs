@@ -1,41 +1,48 @@
+using Microsoft.EntityFrameworkCore;
+using SmartGas.Api.Data;
+using SmartGas.Api.Interface;
+using SmartGas.Api.Service;
+using Microsoft.OpenApi.Models;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-builder.Services.AddOpenApi();
+builder.Services.AddControllers();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo
+    {
+        Title = "SmartGas API",
+        Version = "v1",
+        Description = "API oficial de SmartGas conectada a PostgreSQL y FuelEconomy.gov"
+    });
+});
+
+builder.Services.AddScoped<IViajeService, ViajeService>();
+builder.Services.AddHttpClient<IFuelEconomyApiService, FuelEconomyApiService>();
+
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") 
+                       ?? "Host=localhost;Database=smartgasdb;Username=postgres;Password=StrongPassword123!";
+
+builder.Services.AddDbContext<SmartGasDbContext>(options =>
+    options.UseNpgsql(connectionString));
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+using (var scope = app.Services.CreateScope())
 {
-    app.MapOpenApi();
+    var dbContext = scope.ServiceProvider.GetRequiredService<SmartGasDbContext>();
+    dbContext.Database.EnsureCreated();
 }
 
-app.UseHttpsRedirection();
-
-var summaries = new[]
+app.UseSwagger();
+app.UseSwaggerUI(c =>
 {
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "SmartGas API V1");
+    c.RoutePrefix = string.Empty; 
+});
 
-app.MapGet("/weatherforecast", () =>
-{
-    var forecast =  Enumerable.Range(1, 5).Select(index =>
-        new WeatherForecast
-        (
-            DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-            Random.Shared.Next(-20, 55),
-            summaries[Random.Shared.Next(summaries.Length)]
-        ))
-        .ToArray();
-    return forecast;
-})
-.WithName("GetWeatherForecast");
+app.UseAuthorization();
+app.MapControllers();
 
 app.Run();
-
-record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}
